@@ -25,28 +25,28 @@ class DefaultHeader extends Component {
           full={{ src: logo, width: 89, height: 25, alt: 'CoreUI Logo' }}
           minimized={{ src: sygnet, width: 30, height: 30, alt: 'CoreUI Logo' }}
         />
-        <AppSidebarToggler className="d-md-down-none" display="lg" />
+        {/*        <AppSidebarToggler className="d-md-down-none" display="lg" /> */}
 
         <Nav className="d-md-down-none" navbar>
           <NavItem className="px-3">
             <NavLink href="/">Dashboard</NavLink>
           </NavItem>
           <NavItem className="px-3">
-            <NavLink href="#/users">Users</NavLink>
+            <NavLink href="/delhi">Delhi</NavLink>
           </NavItem>
           <NavItem className="px-3">
-            <NavLink href="#">Settings</NavLink>
+            <NavLink href="/kolkata">Kolkata</NavLink>
+          </NavItem>
+          <NavItem className="px-3">
+            <NavLink href="/chennai">Chennai</NavLink>
+          </NavItem>
+          <NavItem className="px-3">
+            <NavLink href="/mumbai">Mumbai</NavLink>
           </NavItem>
         </Nav>
         <Nav className="ml-auto" navbar>
           <NavItem className="d-md-down-none">
             <NavLink href="#"><i className="icon-bell"></i><Badge pill color="danger">5</Badge></NavLink>
-          </NavItem>
-          <NavItem className="d-md-down-none">
-            <NavLink href="#"><i className="icon-list"></i></NavLink>
-          </NavItem>
-          <NavItem className="d-md-down-none">
-            <NavLink href="#"><i className="icon-location-pin"></i></NavLink>
           </NavItem>
           <AppHeaderDropdown direction="down">
             <DropdownToggle nav>
@@ -69,8 +69,6 @@ class DefaultHeader extends Component {
             </DropdownMenu>
           </AppHeaderDropdown>
         </Nav>
-        <AppAsideToggler className="d-md-down-none" />
-        {/*<AppAsideToggler className="d-lg-none" mobile />*/}
       </React.Fragment>
     );
   }

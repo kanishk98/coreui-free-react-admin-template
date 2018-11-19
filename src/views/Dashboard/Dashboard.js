@@ -38,7 +38,6 @@ const cardChartData1 = {
   labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
   datasets: [
     {
-      label: 'My First dataset',
       backgroundColor: brandPrimary,
       borderColor: 'rgba(255,255,255,.55)',
       data: [65, 59, 84, 84, 51, 55, 40],
@@ -380,6 +379,7 @@ for (var i = 0; i <= elements; i++) {
 }
 
 const mainChart = {
+  // change 
   labels: ['Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa', 'Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa', 'Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa', 'Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa', 'Su'],
   datasets: [
     {
@@ -409,7 +409,6 @@ const mainChart = {
     },
   ],
 };
-
 const mainChartOpts = {
   tooltips: {
     enabled: false,
@@ -462,9 +461,13 @@ class Dashboard extends Component {
     this.onRadioBtnClick = this.onRadioBtnClick.bind(this);
 
     this.state = {
+      mainChart: mainChart,
       dropdownOpen: false,
       radioSelected: 2,
     };
+  }
+
+  componentDidMount() {
   }
 
   toggle() {
@@ -602,28 +605,28 @@ class Dashboard extends Component {
                   </Col>
                 </Row>
                 <div className="chart-wrapper" style={{ height: 300 + 'px', marginTop: 40 + 'px' }}>
-                  <Line data={mainChart} options={mainChartOpts} height={300} />
+                  <Line data={this.state.mainChart} options={mainChartOpts} height={300} />
                 </div>
               </CardBody>
               <CardFooter>
                 <Row className="text-center">
                   <Col sm={12} md className="mb-sm-2 mb-0">
-                    <div className="text-muted">Visits</div>
+                    <div className="text-muted">Moved to another 3PL</div>
                     <strong>29.703 Users (40%)</strong>
                     <Progress className="progress-xs mt-2" color="success" value="40" />
                   </Col>
                   <Col sm={12} md className="mb-sm-2 mb-0 d-md-down-none">
-                    <div className="text-muted">Unique</div>
+                    <div className="text-muted">Donated to colleges</div>
                     <strong>24.093 Users (20%)</strong>
                     <Progress className="progress-xs mt-2" color="info" value="20" />
                   </Col>
                   <Col sm={12} md className="mb-sm-2 mb-0">
-                    <div className="text-muted">Pageviews</div>
+                    <div className="text-muted">Targeted at moving companies</div>
                     <strong>78.706 Views (60%)</strong>
                     <Progress className="progress-xs mt-2" color="warning" value="60" />
                   </Col>
                   <Col sm={12} md className="mb-sm-2 mb-0">
-                    <div className="text-muted">New Users</div>
+                    <div className="text-muted">Government schemes</div>
                     <strong>22.123 Users (80%)</strong>
                     <Progress className="progress-xs mt-2" color="danger" value="80" />
                   </Col>
@@ -637,7 +640,7 @@ class Dashboard extends Component {
             </Card>
           </Col>
         </Row>
-
+        {/*
         <Row>
           <Col xs="6" sm="6" lg="3">
             <Suspense fallback={Loading()}>
@@ -690,12 +693,13 @@ class Dashboard extends Component {
             </div>
           </Col>
         </Row>
+        */}
 
         <Row>
           <Col>
             <Card>
               <CardHeader>
-                Traffic {' & '} Sales
+                Supply {' & '} Demand
               </CardHeader>
               <CardBody>
                 <Row>
@@ -726,7 +730,7 @@ class Dashboard extends Component {
                     <div className="progress-group mb-4">
                       <div className="progress-group-prepend">
                         <span className="progress-group-text">
-                          Monday
+                          PG1
                         </span>
                       </div>
                       <div className="progress-group-bars">
@@ -737,7 +741,7 @@ class Dashboard extends Component {
                     <div className="progress-group mb-4">
                       <div className="progress-group-prepend">
                         <span className="progress-group-text">
-                        Tuesday
+                        PG2
                         </span>
                       </div>
                       <div className="progress-group-bars">
@@ -748,7 +752,7 @@ class Dashboard extends Component {
                     <div className="progress-group mb-4">
                       <div className="progress-group-prepend">
                         <span className="progress-group-text">
-                        Wednesday
+                        PG3
                         </span>
                       </div>
                       <div className="progress-group-bars">
@@ -759,7 +763,7 @@ class Dashboard extends Component {
                     <div className="progress-group mb-4">
                       <div className="progress-group-prepend">
                         <span className="progress-group-text">
-                        Thursday
+                        PG4
                         </span>
                       </div>
                       <div className="progress-group-bars">
@@ -770,7 +774,7 @@ class Dashboard extends Component {
                     <div className="progress-group mb-4">
                       <div className="progress-group-prepend">
                         <span className="progress-group-text">
-                        Friday
+                        PG6
                         </span>
                       </div>
                       <div className="progress-group-bars">
@@ -781,7 +785,7 @@ class Dashboard extends Component {
                     <div className="progress-group mb-4">
                       <div className="progress-group-prepend">
                         <span className="progress-group-text">
-                        Saturday
+                        PG7
                         </span>
                       </div>
                       <div className="progress-group-bars">
@@ -792,7 +796,7 @@ class Dashboard extends Component {
                     <div className="progress-group mb-4">
                       <div className="progress-group-prepend">
                         <span className="progress-group-text">
-                        Sunday
+                        PG8
                         </span>
                       </div>
                       <div className="progress-group-bars">
@@ -803,10 +807,10 @@ class Dashboard extends Component {
                     <div className="legend text-center">
                       <small>
                         <sup className="px-1"><Badge pill color="info">&nbsp;</Badge></sup>
-                        New clients
+                        Supply
                         &nbsp;
                         <sup className="px-1"><Badge pill color="danger">&nbsp;</Badge></sup>
-                        Recurring clients
+                        Demand
                       </small>
                     </div>
                   </Col>
