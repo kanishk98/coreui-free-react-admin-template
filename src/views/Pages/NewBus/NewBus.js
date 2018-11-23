@@ -6,7 +6,7 @@ import { AppHeader } from '@coreui/react';
 class NewBus extends React.Component {
     render() {
         return (
-            <div classname="animated fade-in">
+            <div className="animated fade-in">
             <AppHeader>
                 <DefaultHeader />
             </AppHeader>
