@@ -1,30 +1,11 @@
 import React, { Component } from 'react';
 import { Card, CardBody, CardHeader, Col, Row, Table } from 'reactstrap';
 import { AppSwitch } from '@coreui/react';
+import CustomSwitch from './CustomSwitch';
 
 /*
 All toggles for commonly switched options
 */
-
-const CustomSwitch = ({ switches }) => {
-  {
-    console.log(switches);
-    return (
-      switches.map(s => (
-        <>
-          <td>
-            {s.title}
-          </td>
-          <td>
-            <AppSwitch className={'mx-1'} variant={'3d'} color={'primary'} size={'lg'} {...s.attributes} />
-          </td>
-          <td>
-            {s.info}
-          </td>
-        </>
-      )));
-  }
-}
 
 class Switches extends Component {
 
@@ -46,10 +27,6 @@ class Switches extends Component {
     }
   }
 
-  onToggle = () => {
-    console.log('toggled');
-  }
-
   componentWillMount() {
     // prepare data for Switch
     const cb = require('../../../assets/common_buses');
@@ -60,7 +37,6 @@ class Switches extends Component {
       temp.key = bus.key;
       temp.title = bus.from + " to " + bus.to;
       temp.info = bus.time + "\t" + bus.seats;
-      temp.onClick = this.onToggle();
       busArray.push(temp);
     });
     this.setState({ busArray: busArray });
