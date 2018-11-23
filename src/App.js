@@ -1,11 +1,17 @@
 import React, { Component } from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import './App.scss';
+import firebase from 'firebase';
 
 // Pages
 import { Login, Page404, Page500, Register } from './views/Pages';
 import Dashboard from './views/Dashboard/Dashboard';
 import NewBus from './views/Pages/NewBus/NewBus';
+
+// Constants file
+import Constants from './Constants';
+
+firebase.initializeApp(Constants.firebaseConfig);
 
 class App extends Component {
 
@@ -20,7 +26,7 @@ class App extends Component {
   }
 
   render() {
-    if (App.isLoggedIn()) {
+    if (App.isLoggedIn() != 'yes') {
       return (
         <BrowserRouter>
           <Switch>

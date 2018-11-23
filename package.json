@@ -22,6 +22,7 @@
     "core-js": "^2.5.7",
     "enzyme": "^3.7.0",
     "enzyme-adapter-react-16": "^1.6.0",
+    "firebase": "^5.5.9",
     "flag-icon-css": "^3.2.1",
     "font-awesome": "^4.7.0",
     "node-sass": "^4.10.0",
