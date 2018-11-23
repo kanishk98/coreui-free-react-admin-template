@@ -9,26 +9,37 @@ export default class CustomSwitch extends React.Component {
         this.state = props;
     }
 
-    onToggle = ({item}) => {
-        // implement API calls and saving browser details here
-        const url = 'http://' + Constants.collectionsIp + '/add-bus';
+    onToggle = ({ item }) => {
+        item.s.checked = !item.s.checked;
+        // update always required
+        let url = 'http://' + Constants.collectionsIp + '/update-common-bus';
         fetch(url, {
-            'method': 'POST',
-            'body': item
+            method: 'POST',
+            body: item,
         })
-        .then(async (resolve) => {
-            console.log(await resolve.json());
-            const common_buses = require('../../../assets/common_buses');
-            common_buses.map(bus => {
-                if(bus.key == item.s.key) {
-                    bus.checked = !bus.checked;
-                    item.s.checked = !item.s.checked;
+            .then(async (res) => {
+                console.log(res);
+                // after updating, add/delete bus depending on change
+                if (item.s.checked) {
+                    // new bus added
+                    url = 'http://' + Constants.collectionsIp + '/add-bus';
+                } else {
+                    url = 'http://' + Constants.collectionsIp + '/delete-bus';
                 }
+                fetch(url, {
+                    method: 'POST',
+                    body: item,
+                })
+                    .then(res => {
+                        console.log(res);
+                    })
+                    .catch(err => {
+                        console.log(err);
+                    });
+            })
+            .catch(err => {
+                console.log(err);
             });
-        })
-        .catch(error => {
-            console.log(error);
-        })
     }
 
     render() {
@@ -42,7 +53,7 @@ export default class CustomSwitch extends React.Component {
                     <td>
                         <AppSwitch className={'mx-1'} variant={'3d'} color={'primary'} size={'lg'} onClick={(item) => {
                             item.s = s;
-                            this.onToggle({item});
+                            this.onToggle({ item });
                         }} checked={s.checked} />
                     </td>
                     <td>
