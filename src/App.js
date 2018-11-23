@@ -5,6 +5,7 @@ import './App.scss';
 // Pages
 import { Login, Page404, Page500, Register } from './views/Pages';
 import Dashboard from './views/Dashboard/Dashboard';
+import NewBus from './views/Pages/NewBus/NewBus';
 
 class App extends Component {
   
@@ -20,8 +21,8 @@ class App extends Component {
           <Route exact path="/register" name="Register Page" component={Register} />
           <Route exact path="/404" name="Page 404" component={Page404} />
           <Route exact path="/500" name="Page 500" component={Page500} />
+          <Route exact path="/new-bus" name="New Bus" component={NewBus} />
           <Route path="/" name="Home" component={Dashboard} />
-          <Route path="/new-bus" name="New Bus" component={Dashboard} />
         </Switch>
       </BrowserRouter>
     );
