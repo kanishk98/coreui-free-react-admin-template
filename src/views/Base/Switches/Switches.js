@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Card, CardBody, CardHeader, Col, Row, Table } from 'reactstrap';
-import { AppSwitch } from '@coreui/react';
+import NoSwitch from './NoSwitch';
 import CustomSwitch from './CustomSwitch';
 import Constants from '../../../Constants';
 import ProgressBar from '../ProgressBar/ProgressBar';
@@ -14,7 +14,7 @@ class Switches extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      busArray: []
+      commonBusArray: []
     }
   }
 
@@ -35,16 +35,29 @@ class Switches extends Component {
       let cb = await fetch(Constants.collectionsIp + '/get-common-buses');
       cb = await cb.json();
       console.log(cb);
-      let busArray = [];
+      let commonBusArray = [];
       cb.map(bus => {
         let temp = {};
         temp.key = bus.key;
         temp.title = bus.from + " to " + bus.to;
         temp.info = bus.time + "\t" + bus.seats;
         temp.checked = bus.checked;
-        busArray.push(temp);
+        commonBusArray.push(temp);
       });
-      this.setState({ busArray: busArray });
+      this.setState({ commonBusArray: commonBusArray });
+      
+      let ab = await fetch(Constants.collectionsIp + '/get-common-buses');
+      ab = await ab.json();
+      console.log(ab);
+      let allBusArray = [];
+      ab.map(bus => {
+        let temp = {};
+        temp.key = bus.key;
+        temp.title = bus.from + " to " + bus.to;
+        temp.info = bus.time + "\t" + bus.seats;
+        allBusArray.push(temp);
+      });
+      this.setState({ allBusArray: allBusArray });
     }
     catch (error) {
       console.log(error);
@@ -52,7 +65,7 @@ class Switches extends Component {
   }
 
   render() {
-    if (!this.state.busArray || this.state.busArray.length == 0) {
+    if (!this.state.commonBusArray || this.state.commonBusArray.length == 0) {
       return (
         <div className="animated fadeIn">
           <Row>
@@ -76,6 +89,26 @@ class Switches extends Component {
               <ProgressBar />
             </Col>
           </Row>
+          <Row>
+            <Col xs="12">
+              <Card>
+                <CardHeader>
+                  All buses
+              </CardHeader>
+                <CardBody className="p-0">
+                  <Table hover striped className="table-align-middle mb-0">
+                    <thead>
+                      <tr>
+                        <th>Bus</th>
+                        <th>Details</th>
+                      </tr>
+                    </thead>
+                  </Table>
+                </CardBody>
+              </Card>
+              <ProgressBar />
+            </Col>
+            </Row>
         </div>
       );
     }
@@ -97,14 +130,35 @@ class Switches extends Component {
                     </tr>
                   </thead>
                   <>
-                    <CustomSwitch switches={this.state.busArray} />
+                    <CustomSwitch switches={this.state.commonBusArray} />
                   </>
                 </Table>
               </CardBody>
             </Card>
           </Col>
-
         </Row>
+        <Row>
+            <Col xs="12">
+              <Card>
+                <CardHeader>
+                  All buses
+              </CardHeader>
+                <CardBody className="p-0">
+                  <Table hover striped className="table-align-middle mb-0">
+                    <thead>
+                      <tr>
+                        <th>Bus</th>
+                        <th>Details</th>
+                      </tr>
+                    </thead>
+                    <>
+                    <NoSwitch switches={this.state.allBusArray} />
+                  </>
+                  </Table>
+                </CardBody>
+              </Card>
+            </Col>
+            </Row>
       </div>
     );
   }
