@@ -37,6 +37,7 @@ class Switches extends Component {
       temp.key = bus.key;
       temp.title = bus.from + " to " + bus.to;
       temp.info = bus.time + "\t" + bus.seats;
+      temp.checked = bus.checked;
       busArray.push(temp);
     });
     this.setState({ busArray: busArray });

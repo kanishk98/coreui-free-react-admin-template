@@ -33,16 +33,10 @@ class DefaultHeader extends Component {
             <NavLink href="/">Dashboard</NavLink>
           </NavItem>
           <NavItem className="px-3">
-            <NavLink href="/delhi">Delhi</NavLink>
+            <NavLink href="/delhi">New bus</NavLink>
           </NavItem>
           <NavItem className="px-3">
-            <NavLink href="/kolkata">Kolkata</NavLink>
-          </NavItem>
-          <NavItem className="px-3">
-            <NavLink href="/chennai">Chennai</NavLink>
-          </NavItem>
-          <NavItem className="px-3">
-            <NavLink href="/mumbai">Mumbai</NavLink>
+            <NavLink href="/delhi">Sign out</NavLink>
           </NavItem>
         </Nav>
       </React.Fragment>

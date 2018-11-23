@@ -4,6 +4,7 @@
         "from": "SNU",
         "to": "Pari Chowk",
         "time": "7:40 PM",
-        "seats": "45 seats"
+        "seats": "45 seats",
+        "checked": true
     }
 ]
