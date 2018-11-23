@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { Card, CardBody, CardHeader, Col, Row, Table } from 'reactstrap';
 import { AppSwitch } from '@coreui/react';
 import CustomSwitch from './CustomSwitch';
+import Constants from '../../../Constants';
+import ProgressBar from '../ProgressBar/ProgressBar';
 
 /*
 All toggles for commonly switched options
@@ -29,7 +31,7 @@ class Switches extends Component {
 
   componentWillMount() {
     // prepare data for Switch
-    const cb = require('../../../assets/common_buses');
+    /*const cb = require('../../../assets/common_buses');
     console.log(cb);
     let busArray = [];
     cb.map(bus => {
@@ -40,10 +42,37 @@ class Switches extends Component {
       temp.checked = bus.checked;
       busArray.push(temp);
     });
+    this.setState({ busArray: busArray });*/
+  }
+
+  async componentDidMount() {
+    // fetch common buses from server
+    try {
+      let cb = await fetch(Constants.collectionsIp + '/get-common-buses');
+      cb = await cb.json();
+      console.log(cb);
+      let busArray = [];
+      cb.map(bus => {
+        let temp = {};
+        temp.key = bus.key;
+        temp.title = bus.from + " to " + bus.to;
+        temp.info = bus.time + "\t" + bus.seats;
+        temp.checked = bus.checked;
+        busArray.push(temp);
+    });
     this.setState({ busArray: busArray });
+    } 
+    catch(error) {
+      console.log(error);
+    }
   }
 
   render() {
+    if(!this.state.busArray || this.state.busArray.length == 0) {
+      return (
+        <ProgressBar />
+      );
+    }
     return (
       <div className="animated fadeIn">
         <Row>
@@ -71,7 +100,6 @@ class Switches extends Component {
 
         </Row>
       </div>
-
     );
   }
 }
