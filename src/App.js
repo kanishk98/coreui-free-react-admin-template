@@ -8,12 +8,29 @@ import Dashboard from './views/Dashboard/Dashboard';
 import NewBus from './views/Pages/NewBus/NewBus';
 
 class App extends Component {
-  
+
+  static async isLoggedIn() {
+    let loggedIn = await window.localStorage.getItem('loggedIn');
+    console.log(loggedIn);
+    return loggedIn;
+  }
+
   componentDidMount() {
     document.title = 'Nucleus Transport portal';
   }
 
   render() {
+    if (App.isLoggedIn()) {
+      return (
+        <BrowserRouter>
+          <Switch>
+            <Route exact path="/login" name="Login Page" component={Login} />
+            <Route exact path="/register" name="Register Page" component={Register} />
+            <Route path="/*" name="Home" component={Login} />
+          </Switch>
+        </BrowserRouter>
+      )
+    }
     return (
       <BrowserRouter>
         <Switch>
