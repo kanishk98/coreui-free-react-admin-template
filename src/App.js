@@ -26,17 +26,6 @@ class App extends Component {
   }
 
   render() {
-    if (App.isLoggedIn() != 'yes') {
-      return (
-        <BrowserRouter>
-          <Switch>
-            <Route exact path="/login" name="Login Page" component={Login} />
-            <Route exact path="/register" name="Register Page" component={Register} />
-            <Route path="/*" name="Home" component={Login} />
-          </Switch>
-        </BrowserRouter>
-      )
-    }
     return (
       <BrowserRouter>
         <Switch>
