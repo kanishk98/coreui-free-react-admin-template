@@ -16,6 +16,7 @@ import {
 import firebase from "firebase";
 import { Redirect } from 'react-router-dom';
 import App from '../../../App';
+import Constants from "../../../Constants";
 
 const googleProvider = new firebase.auth.GoogleAuthProvider();
 
@@ -24,6 +25,7 @@ class Login extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      text: 'Welcome.\nNucleus Dashboard is currently in active development. Please click on the Contribute button to report bugs/issues.',
       loggedIn: false,
     }
   }
@@ -41,8 +43,10 @@ class Login extends Component {
       .then(async res => {
         const token = res.credential.accessToken;
         const user = res.user;
-        console.log(user);
-        console.log(token);
+        if (Constants.allowedEmails.indexOf(user.email) == -1) {
+          this.setState({text: "You're not allowed to use this platform. Contact student.transport@snu.edu.in for access."});
+          return;
+        }
         await window.localStorage.setItem("loggedIn", "yes");
         await window.localStorage.setItem("userObject", JSON.stringify(user));
         await window.localStorage.setItem("loginToken", JSON.stringify(token));
@@ -68,32 +72,8 @@ class Login extends Component {
                 <Card className="p-4">
                   <CardBody>
                     <Form>
-                      <h1>Login</h1>
-                      <p className="text-muted">Sign In to your account</p>
-                      <InputGroup className="mb-3">
-                        <InputGroupAddon addonType="prepend">
-                          <InputGroupText>
-                            <i className="icon-user" />
-                          </InputGroupText>
-                        </InputGroupAddon>
-                        <Input
-                          type="text"
-                          placeholder="Username"
-                          autoComplete="username"
-                        />
-                      </InputGroup>
-                      <InputGroup className="mb-4">
-                        <InputGroupAddon addonType="prepend">
-                          <InputGroupText>
-                            <i className="icon-lock" />
-                          </InputGroupText>
-                        </InputGroupAddon>
-                        <Input
-                          type="password"
-                          placeholder="Password"
-                          autoComplete="current-password"
-                        />
-                      </InputGroup>
+                      <h1>Transport portal</h1>
+                      <p className="text-muted">{this.state.text}</p>
                       <Row>
                         <Col xs="6">
                           <Button
@@ -102,11 +82,6 @@ class Login extends Component {
                             onClick={this._onClickLogin}
                           >
                             Login
-                          </Button>
-                        </Col>
-                        <Col xs="6" className="text-right">
-                          <Button color="link" className="px-0">
-                            Forgot password?
                           </Button>
                         </Col>
                       </Row>
