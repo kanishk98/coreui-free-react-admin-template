@@ -25,16 +25,13 @@ import {
   Row,
 } from 'reactstrap';
 import Constants from '../../../Constants';
+import { Redirect } from 'react-router-dom';
 
 class Forms extends Component {
   
   constructor(props) {
     super(props)
-    this.state = {
-      collapse: true,
-      fadeIn: true,
-      timeout: 300
-    };
+    this.state = { collapse: true, fadeIn: true, timeout: 300, submitButtonText: 'Submit bus', submitted: false };
   }
 
   _onChangeFrom = ({ target }) => {
@@ -69,8 +66,30 @@ class Forms extends Component {
     this.setState({ amPm: target.value });
   }
 
+  _onClickSubmit = () => {
+    fetch('http://' + Constants.collectionsIp + '/add-bus', {
+      method: 'POST',
+      body: JSON.stringify(this.state),
+    })
+    .then(res => {
+      console.log(res);
+      debugger
+      this.setState({submitted: true});
+    })
+    .catch(err => {
+      console.log(err);
+      debugger
+      this.setState({submitButtonText: 'Submission failed. Check all fields and retry.'});
+    });
+  }
+
   render() {
     console.log(this.state);
+    if (this.state.submitted) {
+      return (
+        <Redirect to="/" />
+      );
+    }
     return (
       <div className="animated fadeIn">
         <Row>
@@ -260,7 +279,7 @@ class Forms extends Component {
                         </FormGroup>
                       </Col>
                       <div className="form-actions">
-                        <Button type="submit" color="primary">Submit bus</Button>
+                        <Button type="submit" color="primary" onClick={this._onClickSubmit}>{this.state.submitButtonText}</Button>
                       </div>
                     </Form>
                   </CardBody>
