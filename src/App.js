@@ -7,6 +7,7 @@ import firebase from 'firebase';
 import { Login, Page404, Page500, Register } from './views/Pages';
 import Dashboard from './views/Dashboard/Dashboard';
 import NewBus from './views/Pages/NewBus/NewBus';
+import Logout from './views/Pages/LogOut/Logout';
 
 // Constants file
 import Constants from './Constants';
@@ -33,6 +34,7 @@ class App extends Component {
           <Route exact path="/404" name="Page 404" component={Page404} />
           <Route exact path="/500" name="Page 500" component={Page500} />
           <Route exact path="/new-bus" name="New Bus" component={NewBus} />
+          <Route exact path="/sign-out" name="Signing out" component={Logout} />
           <Route path="/" name="Home" component={Dashboard} />
         </Switch>
       </BrowserRouter>
