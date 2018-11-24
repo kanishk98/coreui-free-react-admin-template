@@ -35,6 +35,7 @@ class Login extends Component {
   }
 
   _onClickLogin = async () => {
+    // TODO: remove this as soon as API keys are available
     await window.localStorage.setItem("loggedIn", "yes");
     this.setState({loggedIn: true});
     firebase
