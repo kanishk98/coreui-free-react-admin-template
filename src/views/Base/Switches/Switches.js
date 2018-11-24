@@ -33,6 +33,7 @@ class Switches extends Component {
     // fetch common buses from server
     try {
       let cb = await fetch(Constants.collectionsIp + '/get-common-buses');
+      console.log(cb);
       cb = await cb.json();
       console.log(cb);
       let commonBusArray = [];

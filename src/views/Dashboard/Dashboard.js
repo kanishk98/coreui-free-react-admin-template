@@ -23,6 +23,7 @@ class Dashboard extends Component {
   }
 
   render() {
+    console.log(this.state);
     if (!this.state.loggedIn) {
       return (
         <Redirect to="/login" />

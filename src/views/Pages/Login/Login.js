@@ -35,9 +35,6 @@ class Login extends Component {
   }
 
   _onClickLogin = async () => {
-    // TODO: remove this as soon as API keys are available
-    await window.localStorage.setItem("loggedIn", "yes");
-    this.setState({loggedIn: true});
     firebase
       .auth()
       .signInWithPopup(googleProvider)
@@ -49,6 +46,7 @@ class Login extends Component {
         await window.localStorage.setItem("loggedIn", "yes");
         await window.localStorage.setItem("userObject", JSON.stringify(user));
         await window.localStorage.setItem("loginToken", JSON.stringify(token));
+        this.setState({loggedIn: true});
       })
       .catch(err => {
         console.log(err);
