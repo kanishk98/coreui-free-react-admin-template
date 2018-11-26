@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { Card, CardBody, CardHeader, Col, Row, Table } from 'reactstrap';
-import NoSwitch from './NoSwitch';
 import CustomSwitch from './CustomSwitch';
 import Constants from '../../../Constants';
 import ProgressBar from '../ProgressBar/ProgressBar';
@@ -83,12 +82,12 @@ class Switches extends Component {
                       <th>Details</th>
                     </tr>
                   </thead>
+                  {renderIf(!this.state.commonBusArray || this.state.commonBusArray.length == 0, <div />, <>
+                    <CustomSwitch switches={this.state.commonBusArray} />
+                  </>)}
                 </Table>
               </CardBody>
             </Card>
-            {renderIf(!this.state.commonBusArray || this.state.commonBusArray.length == 0, <ProgressBar />, <>
-              <CustomSwitch switches={this.state.commonBusArray} />
-            </>)}
           </Col>
         </Row>
         <Row>
@@ -106,12 +105,12 @@ class Switches extends Component {
                       <th>Details</th>
                     </tr>
                   </thead>
+                  {renderIf(!this.state.allBusArray || this.state.allBusArray.length == 0, <div />, <>
+                    <CustomSwitch switches={this.state.allBusArray} />
+                  </>)}
                 </Table>
               </CardBody>
             </Card>
-            {renderIf(!this.state.allBusArray || this.state.allBusArray.length == 0, <ProgressBar />, <>
-              <CustomSwitch switches={this.state.allBusArray} />
-            </>)}
           </Col>
         </Row>
       </div>
