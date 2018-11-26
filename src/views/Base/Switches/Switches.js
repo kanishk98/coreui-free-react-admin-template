@@ -38,9 +38,9 @@ class Switches extends Component {
       let commonBusArray = [];
       cb.map(bus => {
         let temp = {};
-        temp.key = bus.key;
+        temp.key = bus._id;
         temp.title = bus.from + " to " + bus.to;
-        temp.info = bus.time + "\t" + bus.seats;
+        temp.info = bus.time + " | " + bus.seats + " total";
         temp.checked = bus.checked;
         commonBusArray.push(temp);
       });
@@ -54,7 +54,7 @@ class Switches extends Component {
         let temp = {};
         temp.key = bus.key;
         temp.title = bus.from + " to " + bus.to;
-        temp.info = bus.time + "\t" + bus.seats;
+        temp.info = bus.time + " | " + bus.seats + " total seats";
         allBusArray.push(temp);
       });
       this.setState({ allBusArray: allBusArray });
@@ -83,7 +83,7 @@ class Switches extends Component {
                     </tr>
                   </thead>
                   {renderIf(!this.state.commonBusArray || this.state.commonBusArray.length == 0, <div />, <>
-                    <CustomSwitch switches={this.state.commonBusArray} />
+                    <CustomSwitch switches={this.state.commonBusArray} type={'common'}/>
                   </>)}
                 </Table>
               </CardBody>
@@ -106,7 +106,7 @@ class Switches extends Component {
                     </tr>
                   </thead>
                   {renderIf(!this.state.allBusArray || this.state.allBusArray.length == 0, <div />, <>
-                    <CustomSwitch switches={this.state.allBusArray} />
+                    <CustomSwitch switches={this.state.allBusArray} type={'normal'}/>
                   </>)}
                 </Table>
               </CardBody>

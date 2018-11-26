@@ -12,9 +12,15 @@ export default class CustomSwitch extends React.Component {
     onToggle = ({ item }) => {
         item.s.checked = !item.s.checked;
         // update always required
-        let url = 'http://' + Constants.collectionsIp + '/update-common-bus';
+        let url = null;
+        if (this.props.type == 'common') {
+            url = 'http://' + Constants.collectionsIp + '/update-common-bus';
+        } else {
+            url = 'http://' + Constants.collectionsIp + '/update-bus';
+        }
         fetch(url, {
             method: 'POST',
+            mode: 'no-cors',
             body: item,
         })
             .then(async (res) => {
