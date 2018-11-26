@@ -26,6 +26,7 @@ import {
 } from 'reactstrap';
 import Constants from '../../../Constants';
 import { Redirect } from 'react-router-dom';
+import App from '../../../App';
 
 class Forms extends Component {
 
@@ -76,7 +77,7 @@ class Forms extends Component {
     this.setState({ seats: target.value });
   }
 
-  _onClickSubmit = async () => {
+  _onClickSubmit = () => {
     // verification will be done by the server
     // no need to do same on front-end
     const { from, to, price, month, day, hour, minutes, amPm, seats } = this.state;
@@ -87,28 +88,7 @@ class Forms extends Component {
     newBus.seats = seats;
     newBus.price = price;
     const url = 'http://' + Constants.collectionsIp + '/add-bus';
-    console.log(url);
-    debugger
-    const data = await fetch(url, {
-      method: 'POST',
-      mode: 'cors',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(newBus),
-    });
-    debugger
-    console.log(data);
-      /*.then(res => {
-        console.log(res);
-        debugger
-        this.setState({ redirect: true });
-      })
-      .catch(err => {
-        console.log(err);
-        debugger
-        this.setState({ buttonText: 'Failed to add bus. Please try again.' })
-      })*/
+    App.postNewBus(url, newBus);
   }
 
   render() {
@@ -315,7 +295,7 @@ class Forms extends Component {
                         </FormGroup>
                       </Col>
                       <div className="form-actions">
-                        <Button type="submit" color="primary" onClick={this._onClickSubmit}>{this.state.buttonText}</Button>
+                        <button type="submit" color="primary" onClick={this._onClickSubmit}>{this.state.buttonText}</button>
                       </div>
                     </Form>
                   </CardBody>
