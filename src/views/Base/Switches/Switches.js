@@ -32,7 +32,7 @@ class Switches extends Component {
   async componentDidMount() {
     // fetch common buses from server
     try {
-      let cb = await fetch(Constants.collectionsIp + '/get-common-buses');
+      let cb = await fetch('http://' + Constants.collectionsIp + '/get-common-buses');
       console.log(cb);
       cb = await cb.json();
       console.log(cb);
@@ -47,7 +47,7 @@ class Switches extends Component {
       });
       this.setState({ commonBusArray: commonBusArray });
       
-      let ab = await fetch(Constants.collectionsIp + '/get-common-buses');
+      let ab = await fetch('http://' + Constants.collectionsIp + '/get-buses');
       ab = await ab.json();
       console.log(ab);
       let allBusArray = [];
