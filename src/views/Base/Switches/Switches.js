@@ -4,6 +4,7 @@ import NoSwitch from './NoSwitch';
 import CustomSwitch from './CustomSwitch';
 import Constants from '../../../Constants';
 import ProgressBar from '../ProgressBar/ProgressBar';
+import { renderIf } from '../../Dashboard/renderIf';
 
 /*
 All toggles for commonly switched options
@@ -33,7 +34,6 @@ class Switches extends Component {
     // fetch common buses from server
     try {
       let cb = await fetch('http://' + Constants.collectionsIp + '/get-common-buses');
-      console.log(cb);
       cb = await cb.json();
       console.log(cb);
       let commonBusArray = [];
@@ -46,7 +46,7 @@ class Switches extends Component {
         commonBusArray.push(temp);
       });
       this.setState({ commonBusArray: commonBusArray });
-      
+
       let ab = await fetch('http://' + Constants.collectionsIp + '/get-buses');
       ab = await ab.json();
       console.log(ab);
@@ -66,53 +66,6 @@ class Switches extends Component {
   }
 
   render() {
-    if (!this.state.commonBusArray || this.state.commonBusArray.length == 0) {
-      return (
-        <div className="animated fadeIn">
-          <Row>
-            <Col xs="12">
-              <Card>
-                <CardHeader>
-                  Common buses taken
-              </CardHeader>
-                <CardBody className="p-0">
-                  <Table hover striped className="table-align-middle mb-0">
-                    <thead>
-                      <tr>
-                        <th>Bus</th>
-                        <th>Switch presence</th>
-                        <th>Details</th>
-                      </tr>
-                    </thead>
-                  </Table>
-                </CardBody>
-              </Card>
-              <ProgressBar />
-            </Col>
-          </Row>
-          <Row>
-            <Col xs="12">
-              <Card>
-                <CardHeader>
-                  All buses
-              </CardHeader>
-                <CardBody className="p-0">
-                  <Table hover striped className="table-align-middle mb-0">
-                    <thead>
-                      <tr>
-                        <th>Bus</th>
-                        <th>Details</th>
-                      </tr>
-                    </thead>
-                  </Table>
-                </CardBody>
-              </Card>
-              <ProgressBar />
-            </Col>
-            </Row>
-        </div>
-      );
-    }
     return (
       <div className="animated fadeIn">
         <Row>
@@ -130,36 +83,37 @@ class Switches extends Component {
                       <th>Details</th>
                     </tr>
                   </thead>
-                  <>
-                    <CustomSwitch switches={this.state.commonBusArray} />
-                  </>
                 </Table>
               </CardBody>
             </Card>
+            {renderIf(!this.state.commonBusArray || this.state.commonBusArray.length == 0, <ProgressBar />, <>
+              <CustomSwitch switches={this.state.commonBusArray} />
+            </>)}
           </Col>
         </Row>
         <Row>
-            <Col xs="12">
-              <Card>
-                <CardHeader>
-                  All buses
+          <Col xs="12">
+            <Card>
+              <CardHeader>
+                All buses
               </CardHeader>
-                <CardBody className="p-0">
-                  <Table hover striped className="table-align-middle mb-0">
-                    <thead>
-                      <tr>
-                        <th>Bus</th>
-                        <th>Details</th>
-                      </tr>
-                    </thead>
-                    <>
-                    <NoSwitch switches={this.state.allBusArray} />
-                  </>
-                  </Table>
-                </CardBody>
-              </Card>
-            </Col>
-            </Row>
+              <CardBody className="p-0">
+                <Table hover striped className="table-align-middle mb-0">
+                  <thead>
+                    <tr>
+                      <th>Bus</th>
+                      <th>Switch presence</th>
+                      <th>Details</th>
+                    </tr>
+                  </thead>
+                </Table>
+              </CardBody>
+            </Card>
+            {renderIf(!this.state.allBusArray || this.state.allBusArray.length == 0, <ProgressBar />, <>
+              <CustomSwitch switches={this.state.allBusArray} />
+            </>)}
+          </Col>
+        </Row>
       </div>
     );
   }
