@@ -42,6 +42,7 @@ class Switches extends Component {
         temp.title = bus.from + " to " + bus.to;
         temp.info = bus.time + " | " + bus.seats + " total";
         temp.checked = bus.checked;
+        temp.price = bus.price;
         commonBusArray.push(temp);
       });
       this.setState({ commonBusArray: commonBusArray });
@@ -55,6 +56,7 @@ class Switches extends Component {
         temp.key = bus.key;
         temp.title = bus.from + " to " + bus.to;
         temp.info = bus.time + " | " + bus.seats + " total seats";
+        temp.price = bus.price;
         allBusArray.push(temp);
       });
       this.setState({ allBusArray: allBusArray });
@@ -80,6 +82,7 @@ class Switches extends Component {
                       <th>Bus</th>
                       <th>Switch presence</th>
                       <th>Details</th>
+                      <th>Price</th>
                     </tr>
                   </thead>
                   {renderIf(!this.state.commonBusArray || this.state.commonBusArray.length == 0, <div />, <>
@@ -103,6 +106,7 @@ class Switches extends Component {
                       <th>Bus</th>
                       <th>Switch presence</th>
                       <th>Details</th>
+                      <th>Price</th>
                     </tr>
                   </thead>
                   {renderIf(!this.state.allBusArray || this.state.allBusArray.length == 0, <div />, <>

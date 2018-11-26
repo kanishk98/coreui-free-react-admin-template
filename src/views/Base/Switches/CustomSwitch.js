@@ -20,7 +20,7 @@ export default class CustomSwitch extends React.Component {
         }
         fetch(url, {
             method: 'POST',
-            mode: 'no-cors',
+            mode: 'cors',
             body: item,
         })
             .then(async (res) => {
@@ -34,6 +34,7 @@ export default class CustomSwitch extends React.Component {
                 }
                 fetch(url, {
                     method: 'POST',
+                    mode: 'cors',
                     body: item,
                 })
                     .then(res => {
@@ -52,7 +53,7 @@ export default class CustomSwitch extends React.Component {
         const { switches } = this.state;
         return (
             switches.map(s => (
-                <>
+                <thead>
                     <td>
                         {s.title}
                     </td>
@@ -65,7 +66,10 @@ export default class CustomSwitch extends React.Component {
                     <td>
                         {s.info}
                     </td>
-                </>
+                    <td>
+                        {'Rs. ' + s.price}
+                    </td>
+                </thead>
             )));
     }
 }
