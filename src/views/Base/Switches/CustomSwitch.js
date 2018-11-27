@@ -1,6 +1,7 @@
 import React from 'react';
 import { AppSwitch } from '@coreui/react';
 import Constants from '../../../Constants';
+const axios = require('axios');
 
 export default class CustomSwitch extends React.Component {
 
@@ -13,6 +14,8 @@ export default class CustomSwitch extends React.Component {
         item.s.checked = !item.s.checked;
         // update always required
         let url = null;
+        item._id = item.key;
+        delete item.key;
         if (this.props.type == 'common') {
             url = 'http://' + Constants.collectionsIp + '/update-common-bus';
         } else {
@@ -25,24 +28,32 @@ export default class CustomSwitch extends React.Component {
         })
             .then(async (res) => {
                 console.log(res);
+                let flag = true;
                 // after updating, add/delete bus depending on change
+                console.log(item.s);
                 if (item.s.checked) {
                     // new bus added
                     url = 'http://' + Constants.collectionsIp + '/add-bus';
+                    if (!this.props.type || this.props.type != 'common') {
+                        flag = false;
+                    }
                 } else {
                     url = 'http://' + Constants.collectionsIp + '/delete-bus';
                 }
-                fetch(url, {
-                    method: 'POST',
-                    mode: 'cors',
-                    body: item,
-                })
-                    .then(res => {
-                        console.log(res);
+                if (flag) {
+                    axios({
+                        url: url,
+                        method: 'POST',
+                        mode: 'cors',
+                        data: item.s,
                     })
-                    .catch(err => {
-                        console.log(err);
-                    });
+                        .then(res => {
+                            console.log(res);
+                        })
+                        .catch(err => {
+                            console.log(err);
+                        });
+                }
             })
             .catch(err => {
                 console.log(err);

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Card, CardBody, CardHeader, Col, Row, Table } from 'reactstrap';
 import CustomSwitch from './CustomSwitch';
+import NoSwitch  from './NoSwitch';
 import Constants from '../../../Constants';
 import ProgressBar from '../ProgressBar/ProgressBar';
 import { renderIf } from '../../Dashboard/renderIf';
@@ -98,20 +99,20 @@ class Switches extends Component {
           <Col xs="12">
             <Card>
               <CardHeader>
-                All buses
+                Scheduled buses
               </CardHeader>
               <CardBody className="p-0">
                 <Table hover striped className="table-align-middle mb-0">
                   <thead>
                     <tr>
                       <th>Bus</th>
-                      <th>Switch presence</th>
                       <th>Details</th>
                       <th>Price</th>
+                      <th>Delete from schedule</th>
                     </tr>
                   </thead>
                   {renderIf(!this.state.allBusArray || this.state.allBusArray.length == 0, <div />, <>
-                    <CustomSwitch switches={this.state.allBusArray} type={'normal'}/>
+                    <NoSwitch switches={this.state.allBusArray} type={'normal'}/>
                   </>)}
                 </Table>
               </CardBody>

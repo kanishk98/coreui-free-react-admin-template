@@ -88,6 +88,7 @@ class Forms extends Component {
     newBus.info = hour + ':' + minutes + ' ' + amPm + ' on ' + day + ' ' + month;
     newBus.seats = seats;
     newBus.price = price;
+    newBus.checked = true;
     const url = 'http://' + Constants.collectionsIp + '/add-bus';
     axios({
       url: url,
