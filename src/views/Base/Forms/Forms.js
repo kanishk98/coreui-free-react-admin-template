@@ -295,7 +295,7 @@ class Forms extends Component {
                         </FormGroup>
                       </Col>
                       <div className="form-actions">
-                        <button type="submit" color="primary" onClick={this._onClickSubmit}>{this.state.buttonText}</button>
+                        <Button type="button" color="primary" onClick={this._onClickSubmit}>{this.state.buttonText}</Button>
                       </div>
                     </Form>
                   </CardBody>
