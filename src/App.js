@@ -22,23 +22,6 @@ class App extends Component {
     return loggedIn;
   }
 
-  static postNewBus(url, newBus) {
-    fetch(url, {
-      method: 'POST',
-      mode: 'cors',
-      body: newBus,
-    }).then(res => {
-      console.log(res);
-      debugger
-      return true;
-    })
-    .catch(err => {
-      console.log(err);
-      debugger
-      return false;
-    });
-  }
-
   componentDidMount() {
     document.title = 'Nucleus Transport portal';
   }

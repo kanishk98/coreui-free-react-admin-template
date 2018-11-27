@@ -53,10 +53,11 @@ class Switches extends Component {
       let allBusArray = [];
       ab.map(bus => {
         let temp = {};
-        temp.key = bus.key;
+        temp.key = bus._id;
         temp.title = bus.from + " to " + bus.to;
         temp.info = bus.time + " | " + bus.seats + " total seats";
         temp.price = bus.price;
+        console.log(temp);
         allBusArray.push(temp);
       });
       this.setState({ allBusArray: allBusArray });

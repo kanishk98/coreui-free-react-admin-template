@@ -27,6 +27,7 @@ import {
 import Constants from '../../../Constants';
 import { Redirect } from 'react-router-dom';
 import App from '../../../App';
+const axios = require('axios');
 
 class Forms extends Component {
 
@@ -88,7 +89,19 @@ class Forms extends Component {
     newBus.seats = seats;
     newBus.price = price;
     const url = 'http://' + Constants.collectionsIp + '/add-bus';
-    App.postNewBus(url, newBus);
+    axios({
+      url: url,
+      method: 'POST',
+      mode: 'cors',
+      data: newBus,
+    }).then(res => {
+      console.log(res);
+      this.setState({redirect: true});
+    })
+    .catch(err => {
+      console.log(err);
+      this.setState({buttonText: 'Request failed. Please try again.'});
+    });
   }
 
   render() {
