@@ -26,12 +26,20 @@ import {
 } from 'reactstrap';
 import Constants from '../../../Constants';
 import { Redirect } from 'react-router-dom';
+import App from '../../../App';
+const axios = require('axios');
 
 class Forms extends Component {
-  
+
   constructor(props) {
     super(props)
-    this.state = { collapse: true, fadeIn: true, timeout: 300, submitButtonText: 'Submit bus', submitted: false };
+    this.state = {
+      collapse: true,
+      fadeIn: true,
+      timeout: 300,
+      buttonText: 'Submit bus',
+      redirect: false,
+    };
   }
 
   _onChangeFrom = ({ target }) => {
@@ -66,26 +74,40 @@ class Forms extends Component {
     this.setState({ amPm: target.value });
   }
 
+  _onChangeSeats = ({ target }) => {
+    this.setState({ seats: target.value });
+  }
+
   _onClickSubmit = () => {
-    fetch('http://' + Constants.collectionsIp + '/add-bus', {
+    // verification will be done by the server
+    // no need to do same on front-end
+    const { from, to, price, month, day, hour, minutes, amPm, seats } = this.state;
+    let newBus = {};
+    newBus.from = from;
+    newBus.to = to;
+    newBus.info = hour + ':' + minutes + ' ' + amPm + ' on ' + day + ' ' + month;
+    newBus.seats = seats;
+    newBus.price = price;
+    newBus.checked = true;
+    const url = 'http://' + Constants.collectionsIp + '/add-bus';
+    axios({
+      url: url,
       method: 'POST',
-      body: JSON.stringify(this.state),
-    })
-    .then(res => {
+      mode: 'cors',
+      data: newBus,
+    }).then(res => {
       console.log(res);
-      debugger
-      this.setState({submitted: true});
+      this.setState({redirect: true});
     })
     .catch(err => {
       console.log(err);
-      debugger
-      this.setState({submitButtonText: 'Submission failed. Check all fields and retry.'});
+      this.setState({buttonText: 'Request failed. Please try again.'});
     });
   }
 
   render() {
     console.log(this.state);
-    if (this.state.submitted) {
+    if (this.state.redirect == true) {
       return (
         <Redirect to="/" />
       );
@@ -116,7 +138,7 @@ class Forms extends Component {
                             <InputGroupAddon addonType="prepend">
                               <InputGroupText>To</InputGroupText>
                             </InputGroupAddon>
-                            <Input id="prependedInput" size="16" type="text" onBlur={this._onChangeTo}/>
+                            <Input id="prependedInput" size="16" type="text" onBlur={this._onChangeTo} />
                           </InputGroup>
                         </div>
                       </FormGroup>
@@ -127,7 +149,7 @@ class Forms extends Component {
                             <InputGroupAddon addonType="prepend">
                               <InputGroupText>Rs. </InputGroupText>
                             </InputGroupAddon>
-                            <Input id="appendedPrependedInput" size="16" type="text" onBlur={this._onChangePrice}/>
+                            <Input id="appendedPrependedInput" size="16" type="text" onBlur={this._onChangePrice} />
                             <InputGroupAddon addonType="append">
                               <InputGroupText>.00</InputGroupText>
                             </InputGroupAddon>
@@ -207,7 +229,7 @@ class Forms extends Component {
                         </FormGroup>
                         <FormGroup>
                           <Label htmlFor="ccmonth">Minutes</Label>
-                          <Input type="select" name="ccmin" id="ccmin" value={this.state.minutes} onChange={this._onChangeMinute}>
+                          <Input type="select" name="ccmin" id="ccmin" value={this.state.minute} onChange={this._onChangeMinute}>
                             <option value="0">0</option>
                             <option value="1">1</option>
                             <option value="2">2</option>
@@ -277,9 +299,17 @@ class Forms extends Component {
                             <option value="2">PM</option>
                           </Input>
                         </FormGroup>
+                        <FormGroup>
+                          <Label>Seats</Label>
+                          <div className="controls">
+                            <InputGroup>
+                              <Input id="seats" size="16" type="text" onBlur={this._onChangeSeats} />
+                            </InputGroup>
+                          </div>
+                        </FormGroup>
                       </Col>
                       <div className="form-actions">
-                        <Button type="submit" color="primary" onClick={this._onClickSubmit}>{this.state.submitButtonText}</Button>
+                        <Button type="button" color="primary" onClick={this._onClickSubmit}>{this.state.buttonText}</Button>
                       </div>
                     </Form>
                   </CardBody>
